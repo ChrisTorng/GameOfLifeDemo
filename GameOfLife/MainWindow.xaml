@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameOfLife"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+        Name="MyWindow"
+        Title="Game of Life" Height="450" Width="800">
+    <Grid x:Name="grid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <Label Content="Width:" />
+            <TextBox x:Name="WidthTextBox" Width="100" Text="30" />
+            <Label Content="Height:" Margin="10,0,0,0" />
+            <TextBox x:Name="HeightTextBox" Width="100" Text="20" />
+            <Button x:Name="OkButton" Content="OK" Click="OkButton_Click" Margin="10,0,0,0" />
+            <Button x:Name="ImportButton" Content="Import..." Click="ImportButton_Click" />
+        </StackPanel>
+        <Canvas x:Name="BoardCanvas" Grid.Row="1" Background="Bisque">
+        </Canvas>
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Label Content="Step:"/>
+            <TextBlock x:Name="StepTextBlock" Width="50"
+                       Text="{Binding ElementName=MyWindow, Path=Steps}"/>
+            <Button x:Name="ResetButton" Content="Reset" Click="ResetButton_Click" />
+            <Button x:Name="NextButton" Content="Next" Click="NextButton_Click" />
+            <Button x:Name="PlayButton" Content="Play" Click="PlayButton_Click" />
+            <Button x:Name="StopButton" Content="Stop" Click="StopButton_Click" />
+            <Label Content="Speed:"/>
+            <TextBlock x:Name="SpeedTextBlock" Width="50"
+                       Text="{Binding Value, ElementName=SpeedSlider}"/>
+            <Slider x:Name="SpeedSlider" Minimum="0" Maximum="1000" Width="100"
+                    Value="1000"
+                    TickFrequency="100" IsSnapToTickEnabled="True" TickPlacement="BottomRight"
+                    ValueChanged="SpeedSlider_ValueChanged" />
+        </StackPanel>
     </Grid>
 </Window>
