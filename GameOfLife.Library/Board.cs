@@ -38,6 +38,16 @@ namespace GameOfLife.Library
 
         public bool Flip(int widthIndex, int heightIndex)
         {
+            if (widthIndex < 0 || widthIndex >= this.Width)
+            {
+                throw new ArgumentOutOfRangeException(nameof(widthIndex));
+            }
+
+            if (heightIndex < 0 || heightIndex >= this.Height)
+            {
+                throw new ArgumentOutOfRangeException(nameof(heightIndex));
+            }
+
             this.Columns[widthIndex][heightIndex] = !this.Columns[widthIndex][heightIndex];
             return this.Columns[widthIndex][heightIndex];
         }

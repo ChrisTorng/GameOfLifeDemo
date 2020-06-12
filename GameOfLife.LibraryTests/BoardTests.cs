@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameOfLife.Library;
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GameOfLife.Library.Tests
@@ -58,6 +59,30 @@ namespace GameOfLife.Library.Tests
 
             Assert.AreEqual(false, board.Columns[0][0]);
             Assert.AreEqual(true, board.Columns[1][2]);
+        }
+
+        [TestMethod]
+        public void Flip_Test()
+        {
+            var board = new Board(1, 1);
+
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+                board.Flip(-1, 0));
+
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+                board.Flip(1, 0));
+
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+                board.Flip(0, -1));
+
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
+                board.Flip(0, 1));
+
+            var actual = board.Flip(0, 0);
+            Assert.AreEqual(true, actual);
+
+            actual = board.Flip(0, 0);
+            Assert.AreEqual(false, actual);
         }
     }
 }
