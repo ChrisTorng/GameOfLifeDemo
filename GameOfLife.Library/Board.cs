@@ -5,7 +5,9 @@ namespace GameOfLife.Library
 {
     public class Board
     {
-        public BitArray[] Rows { get; }
+#pragma warning disable CA1819 // Properties should not return arrays
+        public BitArray[] Columns { get; }
+#pragma warning restore CA1819 // Properties should not return arrays
 
         public int Width { get; }
 
@@ -25,6 +27,19 @@ namespace GameOfLife.Library
 
             this.Width = width;
             this.Height = height;
+
+            this.Columns = new BitArray[width];
+
+            for (int index = 0; index < width; index++)
+            {
+                this.Columns[index] = new BitArray(height);
+            }
+        }
+
+        public bool Flip(int widthIndex, int heightIndex)
+        {
+            this.Columns[widthIndex][heightIndex] = !this.Columns[widthIndex][heightIndex];
+            return this.Columns[widthIndex][heightIndex];
         }
     }
 }

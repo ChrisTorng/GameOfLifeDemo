@@ -7,30 +7,57 @@ namespace GameOfLife.Library.Tests
     public class BoardTests
     {
         [TestMethod]
-        public void Constructor_Valid_Test()
+        public void Constructor_ValidWidth1_Test()
         {
             // Arrange
-            var board = new Board(10, 20);
+            var board = new Board(1, 1);
 
             // Act
 
             // Assert
-            Assert.AreEqual(10, board.Width);
-            Assert.AreEqual(20, board.Height);
+            Assert.AreEqual(1, board.Width);
         }
 
         [TestMethod]
-        public void Constructor_InvalidWidth_Test()
+        public void Constructor_ValidHeight1_Test()
+        {
+            // Arrange
+            var board = new Board(1, 1);
+
+            // Act
+
+            // Assert
+            Assert.AreEqual(1, board.Height);
+        }
+
+        [TestMethod]
+        public void Constructor_InvalidWidth0_Test()
         {
             Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
                 new Board(0, 20));
         }
 
         [TestMethod]
-        public void Constructor_InvalidHeight_Test()
+        public void Constructor_InvalidHeight0_Test()
         {
             Assert.ThrowsException<ArgumentOutOfRangeException>(() =>
                 new Board(10, 0));
+        }
+
+        [TestMethod]
+        public void Constructor_Columns_Test()
+        {
+            var board = new Board(2, 3);
+
+            Assert.IsNotNull(board.Columns);
+            Assert.AreEqual(2, board.Columns.Length);
+            Assert.AreEqual(3, board.Columns[0].Length);
+            Assert.AreEqual(3, board.Columns[1].Length);
+
+            board.Columns[1][2] = true;
+
+            Assert.AreEqual(false, board.Columns[0][0]);
+            Assert.AreEqual(true, board.Columns[1][2]);
         }
     }
 }
